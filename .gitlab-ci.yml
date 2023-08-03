@@ -1,0 +1,36 @@
+image: docker:19.03.12
+services:
+  - docker:19.03.12-dind
+
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ''
+  CONTAINER_IMAGE: harbor.ktgh.com.tw/ktgh/${APP}:${CI_COMMIT_SHORT_SHA}
+
+build:
+  stage: build
+  script:
+    - docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} harbor.ktgh.com.tw
+    - docker build -t ${CONTAINER_IMAGE} -t harbor.ktgh.com.tw/ktgh/${APP}:latest .
+    - docker push ${CONTAINER_IMAGE}
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "master" && $APP != null && $APP != ""
+
+deploy:
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster k8s --server="${SERVER}"
+    - kubectl config set clusters.k8s.certificate-authority-data ${CERTIFICATE_AUTHORITY_DATA}
+    - kubectl config set-credentials gitlab --token="${USER_TOKEN}"
+    - kubectl config set-context default --cluster=k8s --user=gitlab
+    - kubectl config use-context default
+    - sed -i "s/<APP>/${APP}/g" deployment.yaml
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" deployment.yaml
+    - kubectl apply -f deployment.yaml
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "master" && $APP != null && $APP != ""

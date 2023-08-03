@@ -1,0 +1,19 @@
+/**
+ * src/styles/settings.scss
+ *
+ * Configures SASS variables and Vuetify overwrites
+ */
+
+// https://next.vuetifyjs.com/features/sass-variables/`
+// @use 'vuetify' with (
+//   $color-pack: false
+// );
+
+// 直接取消縮排
+// .v-list-group__items .v-list-item {
+//     padding-inline-start: 16px !important;
+// }
+// 讓縮排溫和
+.v-list-group--prepend {
+    --parent-padding: calc(var(--indent-padding)) !important;
+}
