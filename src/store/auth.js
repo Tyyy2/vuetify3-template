@@ -3,7 +3,7 @@ import { isJwtExpired } from "jwt-check-expiration";
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core';
 import { parseJwt } from "@/utils/Jwt";
-import { URL as MyUrl } from "@/utils/URL";
+import UrlHelper from "@/utils/UrlHelper";
 
 export const tokenObservers = []
 export const useAuthStore = defineStore('auth', {
@@ -22,22 +22,10 @@ export const useAuthStore = defineStore('auth', {
     async Authentication() {
 
       //#region 拿到 token 或 key
-      const key = MyUrl.getCaseInsensitive('key');
+      const key = UrlHelper.GetParam('key');
       if (!key && (!this.token || isJwtExpired(this.token))) this.Logout();
       if (!!key) this.token = await SSO.GetToken(key);
       if (!this.token) return;
-      //#endregion
-
-      //#region remvoe key parameter from url
-      const route = this.router.currentRoute.value;
-      const path = route.path;
-      const query = {} ;
-      // remove key from query
-      Object.keys(query).forEach((key) => {
-        if (key.toLowerCase() === 'key') return;
-        query[key] = route.query[key];
-      });
-      this.router.push({ path, query });
       //#endregion
 
       //#region 設置為登入狀態、通知大家有 token 了

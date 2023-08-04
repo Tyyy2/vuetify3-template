@@ -8,7 +8,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base:'/test/f734/vuetify',
+  base:'/',
   plugins: [
     vue({
       template: { transformAssetUrls }
