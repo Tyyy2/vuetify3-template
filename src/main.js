@@ -13,7 +13,7 @@ import { createApp } from 'vue'
 
 // Plugins
 import { registerPlugins } from '@/plugins'
-import SideMenu from '@/components/SideMenu'
+import SideMenu from '@/components/SideMenu.vue'
 import MyBtn from '@/components/MyBtn.vue'
 import TextField from '@/components/TextField.vue'
 
