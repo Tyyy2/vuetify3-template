@@ -1,26 +1,29 @@
 <template>
   <v-container fluid class="fill-height align-start flex-column">
     <VCard flat border class="w-100 px-3 py-2">
-      <v-row no-gutters align="center">
+      <v-row align="center" dense>
         <v-col cols="12" md="6" lg="2">
           <VTextField
-            label="請輸入"
+            label="病歷號"
             density="compact"
             hide-details
             variant="outlined"
           ></VTextField>
         </v-col>
-        <v-col cols="12" md="6" lg="2" class="mt-1 mt-md-0">
+        <v-col cols="12" md="6" lg="2">
           <VTextField
-            label="請輸入"
+            label="身分證號"
             density="compact"
             hide-details
             variant="outlined"
           ></VTextField>
         </v-col>
         <v-spacer></v-spacer>
-        <v-col cols="12" md="6" lg="auto" class="mt-1 mt-lg-0">
-          <VBtn variant="outlined">123</VBtn>
+        <v-col cols="12" md="6" lg="auto">
+          <VBtn block color="grey" variant="outlined">搜尋</VBtn>
+        </v-col>
+        <v-col cols="12" md="6" lg="auto">
+          <VBtn block color="grey" variant="outlined">新增</VBtn>
         </v-col>
       </v-row>
     </VCard>
@@ -31,6 +34,7 @@
             <th class="text-left">項目1</th>
             <th class="text-left">項目2</th>
             <th class="text-left">項目3</th>
+            <th class="text-left">動作</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +42,7 @@
             <td>{{ item.a }}</td>
             <td>{{ item.b }}</td>
             <td>{{ item.c }}</td>
+            <td>xxx</td>
           </tr>
         </tbody>
       </VTable>

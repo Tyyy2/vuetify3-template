@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar flat border>
+    <v-app-bar flat border density="compact">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>應用程式名稱</v-toolbar-title>
     </v-app-bar>
