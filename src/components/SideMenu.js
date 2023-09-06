@@ -8,7 +8,8 @@ const props = {
 const render = ( props )=>{
   const { menus, depth, opened } = props
   const el = menus.map((x)=> {
-    const {children, ...y} = x; // VListItem 不接受 chidlren，會報錯特別排除
+    // VListItem 不接受 chidlren，會報錯特別排除
+    const {children, ...y} = x;
     // 沒有 children 的情況
     if(!children?.length) return h( VListItem, x)
     // 有 children 的情況
