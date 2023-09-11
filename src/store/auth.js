@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core';
 import { parseJwt } from "@/utils/Jwt";
 import UrlHelper from "@/utils/UrlHelper";
+import router from '@/router'
 
 export const tokenObservers = []
 export const useAuthStore = defineStore('auth', {
@@ -32,6 +33,17 @@ export const useAuthStore = defineStore('auth', {
       this.isLogin = true;
       tokenObservers.forEach((x) => x(this.token));
       //#endregion
+    },
+    RemoveKey() {
+      const route = router.currentRoute.value;
+      const query = Object.keys(route.query)
+        .filter((k) => k.toLowerCase() != 'key')
+        .reduce((acc, current) => {
+          const str = route.query[current]?.toString();
+          if (!!str) acc[current] = str;
+          return acc;
+        }, {} );
+      router.replace({ query });
     },
     async Logout() {
       this.token = null;
