@@ -3,12 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/layouts/MainLayout.vue'), // 新增這行
+    component: () => import('@/layouts/FrontLayout.vue'), // 新增這行
     children: [
       {
         path: '',
-        name: 'Home',
-        component: () => import('@/views/MainHome.vue'),
+        name: 'FrontHome',
+        component: () => import('@/views/FrontHome/IndexPage.vue'),
       },
       // 新增 Search 頁面路由設置
       {
