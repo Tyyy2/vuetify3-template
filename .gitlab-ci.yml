@@ -18,7 +18,7 @@ build:
     - docker build -t ${CONTAINER_IMAGE} -t harbor.ktgh.com.tw/ktgh/${APP}:latest .
     - docker push ${CONTAINER_IMAGE}
   rules:
-    - if: $CI_COMMIT_REF_NAME == "master" && $APP != null && $APP != ""
+    - if: $CI_COMMIT_REF_NAME == "main" && $APP != null && $APP != ""
 
 deploy:
   stage: deploy
@@ -33,4 +33,4 @@ deploy:
     - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" deployment.yaml
     - kubectl apply -f deployment.yaml
   rules:
-    - if: $CI_COMMIT_REF_NAME == "master" && $APP != null && $APP != ""
+    - if: $CI_COMMIT_REF_NAME == "main" && $APP != null && $APP != ""
