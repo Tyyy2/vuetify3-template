@@ -1,58 +1,55 @@
-import day from 'dayjs';
-const prototype = Object.getPrototypeOf(day());
-const yyy = (dt) => (dt.getFullYear() - 1911).toString().padStart(3, '0');
+import day from 'dayjs'
+const prototype = Object.getPrototypeOf(day())
+const yyy = dt => (dt.getFullYear() - 1911).toString().padStart(3, '0')
+const getYYYMatch = str => str.match(/Y{4,}|Y{3}|[^Y{3}]+/g)
+
+const dayx = new Proxy(day, {
+  apply: function (target, thisArg, argumentsList) {
+    if (!!argumentsList[1] && typeof argumentsList[1] == 'string') {
+      const arg0 = argumentsList[0]
+      const arg1 = argumentsList[1]
+      let index = 0
+      const matches = getYYYMatch(argumentsList[1])
+      for (const match of matches) {
+        if (match === 'YYY') {
+          argumentsList[0] =
+            arg0.substring(0, index) +
+            (parseInt(arg0.substring(index, index + 3)) + 1911) +
+            arg0.substring(index + 3)
+          argumentsList[1] =
+            arg1.substring(0, index) + 'YYYY' + arg1.substring(index + 3)
+          break
+        }
+        index += match.length
+      }
+    }
+
+    const result = Reflect.apply(target, thisArg, argumentsList)
+    return new Proxy(result, handler)
+  },
+})
 const handler = {
   get: function (target, prop, receiver) {
-    if (prop === 'parseKt') {
-      return function (dte, tme) {
-        !!dte && (receiver.dte = dte);
-        !!tme && (receiver.tme = tme);
-        return receiver;
-      };
-    }
-    if (prop === 'age') return day().diff(receiver, 'years', false);
-    if (prop === 'dte') return receiver.format('YYYMMDD');
-    if (prop === 'tme') return receiver.format('HHmmss');
+    if (prop === 'age') return day().diff(receiver, 'years', false)
+    if (prop === 'dte') return receiver.format('YYYMMDD')
+    if (prop === 'tme') return receiver.format('HHmmss')
     // format
     if (prop === 'format')
-      return (format) => {
-        const formattingTokens = /Y{4,}|Y{3}|[^Y{3}]+/g;
-        const arr = format.match(formattingTokens);
-        const format2 = arr
-          .map((x) => (x === 'YYY' ? yyy(target.$d) : x))
-          .join('');
-        return new day(target.$d).format(format2);
-      };
+      return format => {
+        const format2 = getYYYMatch(format)
+          .map(x => (x === 'YYY' ? yyy(target.$d) : x))
+          .join('')
+        return new day(target.$d).format(format2)
+      }
 
     // Return the original property value
-    if (typeof target[prop] !== 'function') return target[prop];
+    if (typeof target[prop] !== 'function') return target[prop]
     // Wrap the original function with custom behavior
     return function (...args) {
-      const result = target[prop].apply(target, args);
-      const isReturnDayjs = Object.getPrototypeOf(result) === prototype;
-      return isReturnDayjs ? p(result, handler) : result;
-    };
-  },
-  set(obj, prop, v, receiver) {
-    if (prop === 'dte') {
-      v = v.padStart(7, '0');
-      const yyy = parseInt(v.substring(0, 3)) + 1911;
-      obj.$d.setFullYear(yyy);
-      obj.$d.setMonth(parseInt(v.substring(3, 5)) - 1);
-      obj.$d.setDate(parseInt(v.substring(5, 7)));
-      return receiver;
+      const result = target[prop].apply(target, args)
+      const isReturnDayjs = Object.getPrototypeOf(result) === prototype
+      return isReturnDayjs ? dayx(result, handler) : result
     }
-    if (prop === 'tme') {
-      v = v.padEnd(6, '0');
-      obj.$d.setHours(parseInt(v.substring(0, 2)));
-      obj.$d.setMinutes(parseInt(v.substring(2, 4)));
-      obj.$d.setSeconds(parseInt(v.substring(4, 6)));
-      return receiver;
-    }
-    return Reflect.set(...arguments);
   },
-};
-
-const p = (...args) => new Proxy(day(...args), handler);
-
-export default p;
+}
+export default dayx

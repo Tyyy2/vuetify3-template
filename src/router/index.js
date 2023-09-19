@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
+    // 動態載入(Lazy Loading)語法
+    // component: () => import('@/views/Search.vue'),
     path: '/',
     component: () => import('@/layouts/FrontLayout.vue'), // 新增這行
     children: [
@@ -10,39 +12,27 @@ const routes = [
         name: 'FrontHome',
         component: () => import('@/views/FrontHome/IndexPage.vue'),
       },
-      // 新增 Search 頁面路由設置
       {
-        path: 'Search',
-        name: 'MainSearch',
-        // 動態載入(Lazy Loading)語法
-        component: () => import('@/views/MainSearch.vue'),
+        path: 'dayjsx',
+        name: 'FrontDayjsx',
+        component: () => import('@/views/FrontDayjsx/IndexPage.vue'),
       },
       {
-        path: 'Template',
-        name: 'Template',
-        children: [
-          {
-            path: 'Dayjsx',
-            name: 'Dayjsx',
-            component: () => import('@/views/Template/Dayjsx.vue'),
-            props: true
-          }
-        ]
+        path: 'frame/:url',
+        name: 'FrontFrame',
+        component: () => import('@/views/FrontFrame/IndexPage.vue'),
       },
-      // 新增 Search 頁面路由設置
+    ],
+  },
+  {
+    path: '/Admin',
+    name: 'Admin',
+    children: [
       {
-        path: 'Admin',
-        name: 'Admin',
-        // 動態載入(Lazy Loading)語法
-        // component: () => import('@/views/Search.vue'),
-        children: [
-          {
-            path: 'Frame/:url',
-            name: 'AdminFrame',
-            component: () => import('@/views/Admin/FramePage.vue'),
-            props: true
-          }
-        ]
+        path: '',
+        name: 'AdminHome',
+        component: () => import('@/views/AdminHome/IndexPage.vue'),
+        props: true,
       },
     ],
   },
@@ -56,9 +46,9 @@ const routes = [
         path: '',
         name: 'iframe',
         component: () => import('@/views/Test/IFrame.vue'),
-        props: true
-      }
-    ]
+        props: true,
+      },
+    ],
   },
 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <VCard flat border class="mt-2 v-col">
+  <VCard class="mt-2 v-col">
     <v-row class="flex-column fill-height" no-gutters>
       <v-col>
         <VTable class="v-col">
@@ -29,20 +29,21 @@
 </template>
 
 <script setup>
+import { computed, ref } from 'vue'
 // state
-const page = ref(1);
+const page = ref(1)
 const paginationConfig = {
   // config
   length: 15,
   totalVisible: 7,
-  density: "compact",
-  "onUpdate:modelValue": (next) => {
+  density: 'compact',
+  'onUpdate:modelValue': next => {
     // do something
-    page.value = next;
+    page.value = next
   },
-};
+}
 // bind = state + config
-const pagination = computed(() => ({ page: page.value, ...paginationConfig }));
+const pagination = computed(() => ({ page: page.value, ...paginationConfig }))
 </script>
 
 <style lang="scss" scoped></style>
