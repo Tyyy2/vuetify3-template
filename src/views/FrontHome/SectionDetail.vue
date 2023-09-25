@@ -77,4 +77,9 @@ const items = computed(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+tr:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+</style>
