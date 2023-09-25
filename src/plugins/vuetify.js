@@ -23,6 +23,7 @@ export default createVuetify({
     VTextField: { density, hideDetails, variant },
     VBtn:{ variant },
     VSelect: { density, hideDetails, variant },
+    VPagination: { density, totalVisible: 5 },
   },
   theme: {
     themes: {
