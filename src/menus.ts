@@ -1,8 +1,10 @@
 import { Menu } from "@/components/SideMenu"
+import api from "@/api"
 const rawMenus = [
   //#region Menus 從後端 rmdb 拿資料的範例，可簡單通過 getMenus 拿到 menuTree
   { id:'00', title: "首頁", prependIcon: "mdi-home", to:"/" },
   { id:'0A', title: "範例", prependIcon: "mdi-home"},
+  // { id:'0A1', parent: '0A', title: "時間", prependIcon: "mdi-account-multiple-outline", to: '/Template/Dayjsx' },
   { id:'0A1', parent: '0A', title: "時間", prependIcon: "mdi-account-multiple-outline", to: '/Template/Dayjsx' },
   // { id:'0A', title: "搜尋", prependIcon: "mdi-home", to:"/Search" },
   { id: '01', title: "日常行政", prependIcon: "" },
@@ -16,10 +18,11 @@ const rawMenus = [
   },
   {
     id:'011', parent: '01', title: "單位要處理的事項", prependIcon: "mdi-account-multiple-outline",
-    to: {
-      name: 'AdminFrame',
-      params: { url: 'https://docs.google.com/spreadsheets/d/1XlOrY99H4iPuLlXtYpWrASM39UAHT4a3R8YZLv2bD0s' }
-    }
+    href: '/Admin/Frame/https:%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1XlOrY99H4iPuLlXtYpWrASM39UAHT4a3R8YZLv2bD0s'
+    // to: {
+    //   name: 'AdminFrame',
+    //   params: { url: 'https://docs.google.com/spreadsheets/d/1XlOrY99H4iPuLlXtYpWrASM39UAHT4a3R8YZLv2bD0s' }
+    // }
   },
   {
     id:'012', parent: '01', title: "軟體課要處理的事項", prependIcon: "mdi-cog-outline" ,

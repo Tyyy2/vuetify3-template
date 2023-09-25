@@ -12,7 +12,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in desserts" :key="item.name">
+            <tr v-for="item in items" :key="item.name">
               <td>{{ item.a }}</td>
               <td>{{ item.b }}</td>
               <td>{{ item.c }}</td>
@@ -29,8 +29,23 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
+import { useFronthomeStore } from "./store";
+import { useMenuStore } from "@/store/menu";
+
+// page store
+const store = useFronthomeStore();
+window.frontStore = store;
+const menusStore = useMenuStore();
+window.menusStore = menusStore;
+
 // state
+const items = computed(() => []);
+
+//#region pagination
+// pagination reactivity state
 const page = ref(1);
+// pagination none reactivity state
 const paginationConfig = {
   // config
   length: 15,
@@ -41,8 +56,9 @@ const paginationConfig = {
     page.value = next;
   },
 };
-// bind = state + config
+// pagination computed total state
 const pagination = computed(() => ({ page: page.value, ...paginationConfig }));
+//#endregion
 </script>
 
 <style lang="scss" scoped></style>

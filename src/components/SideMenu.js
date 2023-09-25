@@ -11,7 +11,7 @@ const render = ( props )=>{
     // VListItem 不接受 chidlren，會報錯特別排除
     const {children, ...y} = x;
     // 沒有 children 的情況
-    if(!children?.length) return h( VListItem, x)
+    if(!children?.length) return h( VListItem, y)
     // 有 children 的情況
     return h( VListGroup, { value: x.id }, {
       default: () => h(component, { menus: x.children, depth: depth + 1}),

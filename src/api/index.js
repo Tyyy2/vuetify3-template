@@ -1,5 +1,6 @@
 import { tokenObservers } from '@/store/auth';
 import axios from 'axios'
+import { useMeuns } from './menu';
 
 //#region create axios instance
 const baseURL = '/api/'
@@ -19,15 +20,7 @@ const tokenCallBack = (token) => api.defaults.headers.common['Authorization']= `
 tokenObservers.push(tokenCallBack)
 
 //#region 這裡撰寫 api
-// 模擬 ajax
-api.GetUser = () => new Promise(res=>res([
-  { id: 1, name: '', age: 22 },
-  { id: 2, name: '', age: 22 },
-  { id: 3, name: '', age: 22 },
-  { id: 4, name: '', age: 22 },
-  { id: 5, name: '', age: 22 },
-  { id: 6, name: '', age: 22 },
-]))
+useMeuns(api) // 讓 api 有 useMenus 功能
 //#endregion
 
 // 使用 composable 寫法

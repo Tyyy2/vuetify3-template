@@ -11,6 +11,10 @@ import pinia from '../store'
 import router from '../router'
 
 export function registerPlugins (app) {
+  // bypass globalConfig
+  pinia.use(({store}) => {
+    store.$api = app.config.globalProperties.$api
+  })
   // loadFonts()
   app
     .use(vuetify)

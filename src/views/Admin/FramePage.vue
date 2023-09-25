@@ -1,4 +1,5 @@
 <template>
+  {{ url }}
   <iframe class="w-100 h-100" :src="url"></iframe>
 </template>
 

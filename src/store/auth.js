@@ -1,4 +1,5 @@
 import axios from "axios";
+import { nextTick } from "vue";
 import { isJwtExpired } from "jwt-check-expiration";
 import { defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core';
@@ -34,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
       tokenObservers.forEach((x) => x(this.token));
       //#endregion
     },
-    RemoveKey() {
+    async RemoveKey() {
       const route = router.currentRoute.value;
       const query = Object.keys(route.query)
         .filter((k) => k.toLowerCase() != 'key')
@@ -43,7 +44,8 @@ export const useAuthStore = defineStore('auth', {
           if (!!str) acc[current] = str;
           return acc;
         }, {} );
-      router.replace({ query });
+      const path = window.location.pathname
+      router.replace({ path, query });
     },
     async Logout() {
       this.token = null;
