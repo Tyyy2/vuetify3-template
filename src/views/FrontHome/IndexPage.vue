@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
-import SectionQuery from "./SectionQuery.vue";
-import SectionDetail from "./SectionDetail.vue";
+import SectionQuery from './SectionQuery.vue'
+import SectionDetail from './SectionDetail.vue'
 </script>

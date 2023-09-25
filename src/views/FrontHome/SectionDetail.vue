@@ -1,5 +1,5 @@
 <template>
-  <VCard flat border class="mt-2 v-col">
+  <VCard class="mt-2 v-col">
     <v-row class="flex-column fill-height" no-gutters>
       <v-col>
         <VTable class="v-col">
@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+<<<<<<< HEAD
 import { ref, computed } from "vue";
 import { useFronthomeStore } from "./store";
 import { useMenuStore } from "@/store/menu";
@@ -46,19 +47,30 @@ const items = computed(() => []);
 // pagination reactivity state
 const page = ref(1);
 // pagination none reactivity state
+=======
+import { computed, ref } from 'vue'
+// state
+const page = ref(1)
+>>>>>>> a6d500e147701bc4c0c6d0554271feade9ca70f5
 const paginationConfig = {
   // config
   length: 15,
   totalVisible: 7,
-  density: "compact",
-  "onUpdate:modelValue": (next) => {
+  density: 'compact',
+  'onUpdate:modelValue': next => {
     // do something
-    page.value = next;
+    page.value = next
   },
+<<<<<<< HEAD
 };
 // pagination computed total state
 const pagination = computed(() => ({ page: page.value, ...paginationConfig }));
 //#endregion
+=======
+}
+// bind = state + config
+const pagination = computed(() => ({ page: page.value, ...paginationConfig }))
+>>>>>>> a6d500e147701bc4c0c6d0554271feade9ca70f5
 </script>
 
 <style lang="scss" scoped></style>
