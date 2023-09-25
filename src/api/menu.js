@@ -18,7 +18,7 @@ export function useMeuns(api){
       //#region Menus 從後端 rmdb 拿資料的範例，可簡單通過 getMenus 拿到 menuTree
       { id: '00', parent: null, title: "首頁", prepend: "mdi-home", to:"/" },
       { id: '0A', parent: null, title: "範例", prepend: "mdi-home"},
-      { id: '0A1', parent: '0A', title: "時間", prepend: "mdi-account-multiple-outline", url: '/Template/Dayjsx', type:0 },
+      { id: '0A1', parent: '0A', title: "時間", prepend: "mdi-account-multiple-outline", url: '/dayjsx', type:0 },
       { id: '01', parent: null, title: "日常行政", prepend: "" },
       { id: '013', parent: '01', title: "院內信箱", prepend: "mdi-account-multiple-outline", url: URL.院內信箱, type: 2 },
       { id: '010', parent: '01', title: "資訊室班表", prepend: "mdi-account-multiple-outline", url: URL.資訊室班表, type: 2 },

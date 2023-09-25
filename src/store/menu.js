@@ -3,17 +3,17 @@ import { defineStore } from 'pinia'
 
 export const useMenuStore = defineStore('menus', {
   state: () => ({
-    raw: [],
     menus: [],
   }),
   getters:{
+    menuTree(){
+      const menus = transformMenu(this.menus)
+      return makeMenuTree(menus)
+    },
   },
   actions: {
     async GetMenus(){
-      const raw = await this.$api.GetMenus()
-      const menus = transformMenu(raw)
-      const menutree = makeMenuTree(menus)
-      this.menus = menutree
+      this.menus = await this.$api.GetMenus()
     }
   }
 })
@@ -27,7 +27,7 @@ function transformMenu(raws){
       if(type === 0) others.to = url
       if(type===1 || type === 2) others.href = url
       if(type===2) others.target = '_blank'
-      if(type === 3) others.to = { name: 'AdminFrame', params:{ url } }
+      if(type === 3) others.to = { name: 'FrontFrame', params:{ url } }
     }
     return others
   })
@@ -42,4 +42,11 @@ function makeMenuTree(raws, parent = null){
       return  x
     })
 }
+export const deCodeUrlType = (type) => ({
+  "-": "-",
+  0: "前端路由",
+  1: "外部連結",
+  2: "另開外部連結",
+  3: "iframe 內框",
+}[!!type || (type === 0 ? 0 : "-")])
 //#endregion

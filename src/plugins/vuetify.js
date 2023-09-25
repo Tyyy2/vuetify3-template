@@ -11,13 +11,18 @@ import 'vuetify/styles'
 // Composables
 import { createVuetify } from 'vuetify'
 
+const density ='compact';
+const hideDetails = true;
+const variant = "outlined";
+const flat = true;
+const border = true;
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   defaults: {
-    VCard: {
-      flat: true,
-      border: true,
-    },
+    VCard: { flat, border },
+    VTextField: { density, hideDetails, variant },
+    VBtn:{ variant },
+    VSelect: { density, hideDetails, variant },
   },
   theme: {
     themes: {
