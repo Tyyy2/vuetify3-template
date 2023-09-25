@@ -1,13 +1,10 @@
 <template>
-  <v-icon v-if="!isDesktop" v-bind="$attrs" icon="mdi-home" @click="goHome()"></v-icon>
+  <v-icon v-bind="{ ...$attrs, onClick, icon }"></v-icon>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-
-// 回光田人
 const HOME_URL = "https://m-eip.ktgh.com.tw/MEIP_ServerHttps/"; // 光田人網址
-const goHome = () => (window.location.href = HOME_URL);
+const emit = defineEmits(["click"]);
 
 // 裝置判斷邏輯
 const TABLET_PATTERN = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i;
@@ -20,7 +17,11 @@ const getDevice = () => {
 };
 
 // 判斷是否為桌機
-const isDesktop = computed(() => getDevice() === "desktop"); // 是否為桌機
+const isDesktop = getDevice() === "desktop"; // 是否為桌機
+const icon = isDesktop ? "mdi-logout" : "mdi-home";
+const onClick = !isDesktop
+  ? () => (window.location.href = HOME_URL) // 回光田人
+  : (e) => emit("click", e); // 丟出 click 事件
 </script>
 
 <style scoped></style>
