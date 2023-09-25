@@ -1,6 +1,6 @@
 <template>
   <VCard class="mt-2 w-100">
-    <VTable class="v-col" density="compact">
+    <VTable>
       <thead>
         <tr>
           <th class="text-left">ID</th>
@@ -44,7 +44,7 @@ const menus = useMenuStore();
 //#region pagination
 // pagination reactivity state
 const page = ref(1); // now page
-const rowsPerPage = ref(15); // rows per page
+const rowsPerPage = ref(10); // rows per page
 const rowsPerPageOptions = [5, 10, 15]; // rows per page options
 // pagination computed total state
 const pagination = computed(() => ({
