@@ -5,7 +5,6 @@ declare module 'dayjs' {
     age: number;
     dte: string;
     tme: string;
-    parseKt: (dte: string, tme?: string) => Dayjs;
   }
 }
 
