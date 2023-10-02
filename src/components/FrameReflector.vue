@@ -34,7 +34,7 @@ const resizeHandler = () => {
 onMounted(() => resizeHandler());
 onMounted(() => holder.value.contentWindow.addEventListener("resize", resizeHandler));
 onUnmounted(() =>
-  holder.value.contentWindow.removeEventListener("resize", resizeHandler)
+  holder.value?.contentWindow.removeEventListener("resize", resizeHandler)
 );
 // 原始寬度 985px 可以塞得下 frame content
 const displayerStyle = computed(() => {
