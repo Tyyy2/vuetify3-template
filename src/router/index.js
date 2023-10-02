@@ -36,21 +36,7 @@ const routes = [
       {
         path: '',
         name: 'AdminHome',
-        component: () => import('@/views/AdminHome/IndexPage.vue'),
-        props: true,
-      },
-    ],
-  },
-  {
-    path: '/Test',
-    name: 'Test',
-    // 動態載入(Lazy Loading)語法
-    component: () => import('@/layouts/TestLayout.vue'),
-    children: [
-      {
-        path: '',
-        name: 'iframe',
-        component: () => import('@/views/Test/IFrame.vue'),
+        component: () => import('@/views/Admin/IndexPage.vue'),
         props: true,
       },
     ],
