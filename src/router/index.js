@@ -22,6 +22,11 @@ const routes = [
         name: 'FrontFrame',
         component: () => import('@/views/FrontFrame/IndexPage.vue'),
       },
+      {
+        path: 'frameReflector',
+        name: 'FrontFrameReflector',
+        component: () => import('@/views/FrontFrameReflector/IndexPage.vue'),
+      },
     ],
   },
   {
