@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "rock": "git add . && git commit -m \"$1\" && git push --all && git push gitlab --all",
+    "rock": "git add . && git commit -m \"$1\" && git push --all && git push github --all",
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
