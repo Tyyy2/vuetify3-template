@@ -1,6 +1,3 @@
-import  MockAdapter  from 'axios-mock-adapter'
-
-
 const URL = {
   院內信箱 : 'https://zimbra.ktgh.com.tw/',
   資訊室班表:'http://websvc.ktgh.com.tw:9005/HR/HraClassSch/Default.aspx',
