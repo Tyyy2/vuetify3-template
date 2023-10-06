@@ -116,17 +116,18 @@ export function GetPatientMock() {
       .padStart(2, '0')}-${randomDay.toString().padStart(2, '0')}`
 
     // 隨機生成ID，並確保它是唯一的
-    let identifier
+    let identifier = {
+      system: 'https://www.ktgh.com.tw',
+    }
     do {
-      identifier = Math.floor(Math.random() * 1000000)
-    } while (existingIds.has(identifier))
-    existingIds.add(identifier)
+      identifier.value = Math.floor(Math.random() * 1000000)
+    } while (existingIds.has(identifier.value))
+    existingIds.add(identifier.value)
 
     const gender = Math.random() > 0.5 ? 'male' : 'female' // 隨機決定性別
     const active = Math.random() > 0.5 // 隨機決定是否活躍
     const name = [
       {
-        use: 'official',
         family: randomName(gender),
         given: [randomName(gender)],
       },
