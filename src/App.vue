@@ -6,7 +6,8 @@
 import { onMounted } from 'vue'
 import { useAppStore } from './store/app'
 import { useAuthStore } from './store/auth'
-
+import { api } from '@/api'
+window.api = api
 const appstore = useAppStore()
 const authstore = useAuthStore()
 
