@@ -186,7 +186,7 @@ let MENUS = [
   // //#endregion
 ]
 export const useMockMenus = mock => {
-  // 不考慮分頁的結果
+  // 不考慮分頁的結果，一次取得全部資料
   mock.onGet('/api/menus').reply(200, MENUS)
   // [範例] 計算 offset, limit, 0 就是不限制回傳資料，最多回傳 50 筆資料
   mock.onGet(/\/api\/menus\/pagination.*/).reply(function (config) {
