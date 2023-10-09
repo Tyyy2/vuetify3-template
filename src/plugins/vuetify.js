@@ -11,17 +11,23 @@ import 'vuetify/styles'
 // Composables
 import { createVuetify } from 'vuetify'
 
-const density ='compact';
-const hideDetails = true;
-const variant = "outlined";
-const flat = true;
-const border = true;
+const density = 'compact'
+const hideDetails = true
+const variant = 'outlined'
+const flat = true
+const border = true
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   defaults: {
     VCard: { flat, border },
-    VTextField: { density, hideDetails, variant },
-    VBtn:{ variant },
+    VTextField: {
+      density,
+      hideDetails,
+      variant,
+      'single-line': true,
+      class: 'elevation-0',
+    },
+    VBtn: { variant },
     VSelect: { density, hideDetails, variant },
     VPagination: { density, totalVisible: 5 },
   },
