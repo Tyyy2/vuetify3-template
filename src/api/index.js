@@ -6,10 +6,7 @@ import { usePatients } from './Patient'
 import { useMockPatient } from './mock/Patient'
 import MockAdapter from 'axios-mock-adapter'
 
-//#region create axios instance
-const baseURL = import.meta.env.DEV
-  ? '/'
-  : 'https://yourapidomain.ktgh.com.tw/maybe/subfolder/'
+const baseURL = import.meta.env.VITE_API_URL
 export const api = axios.create({ baseURL })
 
 // 當獲得 token 的時候把 token 加到 header
