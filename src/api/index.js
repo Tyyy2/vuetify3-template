@@ -1,23 +1,20 @@
-import { tokenObservers } from '@/store/auth'
 import axios from 'axios'
 import { useMeuns } from './menu'
 import { useMockMenus } from './mock/menu'
 import { usePatients } from './Patient'
 import { useMockPatient } from './mock/Patient'
+import { useAuthStore } from '@/store/auth'
 import MockAdapter from 'axios-mock-adapter'
 
 const baseURL = import.meta.env.VITE_API_URL
 export const api = axios.create({ baseURL })
 
-// 當獲得 token 的時候把 token 加到 header
-const tokenCallBack = token =>
-  (api.defaults.headers.common['Authorization'] = `Bearer ${token}`)
-tokenObservers.push(tokenCallBack)
-//#endregion
-
 //#region axios interceptors
 function requestHandler(config) {
   // 設定 api 送出前要做的事
+  const auth = useAuthStore()
+  auth.CheckToken()
+  config.headers.Authorization = `Bearer ${auth.token}`;
   return config
 }
 api.interceptors.request.use(requestHandler)
