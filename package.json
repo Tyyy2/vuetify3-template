@@ -16,7 +16,6 @@
     "axios-mock-adapter": "^1.22.0",
     "core-js": "^3.29.3",
     "dayjs": "^1.11.10",
-    "jwt-check-expiration": "^1.0.5",
     "pinia": "^2.1.6",
     "roboto-fontface": "*",
     "vue": "^3.3.4",

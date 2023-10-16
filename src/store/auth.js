@@ -7,7 +7,7 @@ import UrlHelper from '@/utils/UrlHelper'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: useLocalStorage('token', null),
-    reflashHour: 0.5,
+    reflashHour: 0.5, // 設定 jwt 距離到期多久要更新
     isLogin: false,
   }),
   getters: {
@@ -69,6 +69,6 @@ class SSO {
     const url = `${this.baseUrl}/api/token/reflash`
     const headers = { "Authorization": `Bearer ${token}` }
     const res = await axios.get(url, {headers})
-    return res.data.Token
+    return res.data.token
   }
 }
