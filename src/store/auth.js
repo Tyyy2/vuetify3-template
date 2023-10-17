@@ -8,11 +8,10 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: useLocalStorage('token', null),
     reflashHour: 0.5, // 設定 jwt 距離到期多久要更新
-    isLogin: false,
   }),
   getters: {
     payload: ({ token }) => (!token ? {} : parseJwt(token)),
-    tokenValid(){
+    isLogin(){
       const  { exp } = this.payload || {}
       return !!exp ? exp*1000 - Date.now() > 0 : false
     },
@@ -30,16 +29,11 @@ export const useAuthStore = defineStore('auth', {
     },
     // 嘗試登入
     async Authentication() {
-      //#region 拿到 token 或 key
+      // 拿到 token 或 key
       const url = new URL(window.location.href)
       const key = UrlHelper.GetParam(url, 'key')
       if (!!key) this.token = await SSO.GetToken(key)
-      if (!this.tokenValid) this.Logout()
-      //#endregion
-
-      //#region 設置為登入狀態、通知大家有 token 了
-      this.isLogin = true
-      //#endregion
+      if (!this.isLogin) this.Logout()
     },
     async RemoveKey() {
       let url = new URL(window.location.href)
