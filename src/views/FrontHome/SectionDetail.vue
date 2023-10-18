@@ -14,7 +14,7 @@
           <td>{{ item.id }}</td>
           <td>{{ item.title }}</td>
           <td><v-icon size="small" :icon="item.prepend"></v-icon></td>
-          <td>{{ deCodeUrlType(item.type) }}</td>
+          <td>{{ URL_TYPE.get(item.type) || "-" }}</td>
         </tr>
       </tbody>
     </VTable>
@@ -37,9 +37,7 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
-import { useMenuStore, deCodeUrlType } from "@/store/menu";
-
-const menus = useMenuStore();
+import { MENUS, URL_TYPE } from "@/menu";
 
 //#region pagination
 // pagination reactivity state
@@ -69,11 +67,11 @@ watch(
 //#endregion
 
 // item
-const total = computed(() => menus.menus.length);
+const total = computed(() => MENUS.length);
 const items = computed(() => {
   const start = (page.value - 1) * rowsPerPage.value;
   const end = start + rowsPerPage.value;
-  return menus.menus.slice(start, end);
+  return MENUS.slice(start, end);
 });
 </script>
 

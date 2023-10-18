@@ -9,7 +9,7 @@ const URL_CONST = {
   'EIP-server2': 'http://apclu2.ktgh.com.tw:7777/Sec/Sec/StartSec.do',
   數位學習: 'https://lms.ktgh.com.tw/',
 }
-let MENUS = [
+export let MENUS = [
   //#region Menus 從後端 rmdb 拿資料的範例，可簡單通過 getMenus 拿到 menuTree
   { id: '00', parent: null, title: '首頁', prepend: 'mdi-home', to: '/' },
   { id: '0A', parent: null, title: '範例', prepend: 'mdi-home' },
@@ -185,24 +185,39 @@ let MENUS = [
   },
   // //#endregion
 ]
-export const useMockMenus = mock => {
-  // 不考慮分頁的結果，一次取得全部資料
-  mock.onGet('/api/menus').reply(200, MENUS)
-  // [範例] 計算 offset, limit, 0 就是不限制回傳資料，最多回傳 50 筆資料
-  mock.onGet(/\/api\/menus\/pagination.*/).reply(function (config) {
-    const url = new URL(config.url, 'http://localhost')
-    const params = url.searchParams
-    const total = MENUS.length
-    const offset = parseInt(params.get('offset'))
-    let limit = parseInt(params.get('limit'))
-    if (limit == 0 || limit > 50) limit = 50
-    const meta = { offset, limit, total }
-    const items = MENUS.slice(offset, limit + offset)
-    return [200, { items, meta }]
-  })
-  mock.onPost('/api/menus').reply(function (config) {
-    const newItem = JSON.parse(config.data)
-    MENUS.push(newItem)
-    return [201, { message: 'Item created' }]
+//#region menu 處理的邏輯
+export function transformMenu(raws){
+  return raws.map(x => {
+    const {url, type, prepend, ...others} = x
+    if(!!prepend) others.prependIcon = prepend
+    if(!!url){
+      if(type === 0) others.to = url
+      if(type===1 || type === 2) others.href = url
+      if(type===2) others.target = '_blank'
+      if(type === 3) others.to = { name: 'FrontFrame', params:{ url } }
+    }
+    return others
   })
 }
+export function makeMenuTree(raws, parent = null){
+  const nextList = !!parent
+    ? raws.filter(x => x.parent === parent)
+    : raws.filter(x => !x.parent)
+  return nextList.map( x => {
+      const haveChild = raws.some(y => y.parent === x.id)
+      if(haveChild) x.children = makeMenuTree(raws, x.id)
+      return  x
+    })
+}
+
+export const URL_TYPE = new Map([
+    [0, "前端路由"],
+    [1, "外部連結"],
+    [2, "另開外部連結"],
+    [3, "iframe 內框"],
+  ])
+//#endregion
+
+// 轉成 vuetify 格式
+export const menus = transformMenu(MENUS);
+export const menuTree = makeMenuTree(menus);

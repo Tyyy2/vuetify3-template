@@ -9,7 +9,7 @@
 
     <v-navigation-drawer v-model="drawer">
       <!-- 這裡塞 Menu List、以 opened 預設打開的節點  -->
-      <SideMenu :menus="menu.menuTree" :opened="opened"></SideMenu>
+      <SideMenu :menus="menuTree" :opened="opened"></SideMenu>
     </v-navigation-drawer>
     <v-main>
       <router-view />
@@ -19,24 +19,25 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
-import { useMenuStore } from "@/store/menu";
 import { useAppStore } from "@/store/app";
 import { useAuthStore } from "@/store/auth";
+import { menuTree } from "@/menu";
 
 const drawer = ref(null);
 const opened = ref([]);
 
-const menu = useMenuStore();
 const app = useAppStore();
 const auth = useAuthStore();
 
 //#region FrontLayout initialization logic
 const init = async () => {
-  await menu.GetMenus();
+  //
 };
+
 onMounted(async () => {
   if (app.inited) return await init();
-  app.addInitProcedure(menu.GetMenus());
+  app.addInitProcedure(init);
 });
 //#endregion
 </script>
+../menu
