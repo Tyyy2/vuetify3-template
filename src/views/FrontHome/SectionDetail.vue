@@ -57,14 +57,6 @@ watch(
   () => rowsPerPage.value,
   () => (page.value = 1)
 );
-// serverside pagination: query when page changes
-// watch(
-//   () => page.value,
-//   () => {
-//     // query
-//   }
-// );
-//#endregion
 
 // item
 const total = computed(() => MENUS.length);
