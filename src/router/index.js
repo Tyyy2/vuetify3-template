@@ -1,6 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
+  // 練習用
+  // {
+  //   path: '/Practice',
+  //   component: () => import('@/layouts/PracticeLayout.vue'),
+  //   children: [
+  //     {
+  //       path: '',
+  //       name: 'PracticeCRUD',
+  //       component: () => import('@/views/PracticeCRUD/IndexPage.vue'),
+  //     },
+  //   ],
+  // },
   {
     // 動態載入(Lazy Loading)語法
     // component: () => import('@/views/Search.vue'),
