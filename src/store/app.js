@@ -6,7 +6,7 @@ const initProcedue = []
 const afterInitCallBack = []
 export const useAppStore = defineStore('app', {
   state: () => ({
-    inited: false,
+    inited: false, // 表示 state 是否已經初始化完畢
   }),
   getters:{
     loading(){
@@ -14,13 +14,14 @@ export const useAppStore = defineStore('app', {
     }
   },
   actions: {
-    // 添加 app 啟動程序
+    // 添加 app 啟動程序，用來向觀察者列表中添加觀察者
     addInitProcedure(func) {
       initProcedue.push(func);
     },
     // 啟動 app
     async init() {
       initProcedue.forEach(async (x) => await x());
+      // 將 initialized 設為 true，表示 app 已經初始化完畢
       this.inited = true;
       afterInitCallBack.forEach((x) => x());
     },
