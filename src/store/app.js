@@ -1,16 +1,16 @@
 // Utilities
 import { defineStore } from 'pinia'
 
-const loadingTags= []
 const initProcedue = []
 const afterInitCallBack = []
 export const useAppStore = defineStore('app', {
   state: () => ({
     inited: false, // 表示 state 是否已經初始化完畢
+    loadingTags: []
   }),
   getters:{
     loading(){
-      return loadingTags.length > 0
+      return this.loadingTags.length > 0
     }
   },
   actions: {
@@ -31,12 +31,12 @@ export const useAppStore = defineStore('app', {
     },
     // 加入 loading tag
     AddLoading(key){
-      loadingTags.push(key)
+      this.loadingTags.push(key)
     },
     // 移除 loading tag
     RemoveLoading(key){
-      const idx = loadingTags.indexOf(key)
-      if(idx !== -1) loadingTags.splice(idx, 1)
+      const idx = this.loadingTags.indexOf(key)
+      if(idx !== -1) this.loadingTags.splice(idx, 1)
     }
   }
 })

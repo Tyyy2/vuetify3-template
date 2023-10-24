@@ -1,15 +1,13 @@
 <template>
   <router-view />
+  <dialog-loading :model-value="appstore.loading"></dialog-loading>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
 import { useAppStore } from "./store/app";
 // import { useAuthStore } from "./store/auth";
-import { api } from "@/api";
-window.api = api;
-window.url = import.meta.env.DEV;
-console.log(import.meta.env);
+import DialogLoading from "@/components/DialogLoading.vue";
 const appstore = useAppStore();
 // const authstore = useAuthStore();
 
